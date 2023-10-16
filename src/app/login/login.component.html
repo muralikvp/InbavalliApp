@@ -2,7 +2,7 @@
 <div class="row">
 <div class="offset-lg-3 col-lg-6">
   <div class="card-box" style="background-color: #ccc">
-   <form>
+   <form [formGroup]="Login" (ngSubmit)="ProceedLogin()">
     <div class="row" style="display:block">
       <h2 style="text-align: center;">Login</h2>
     </div>
