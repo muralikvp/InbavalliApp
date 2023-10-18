@@ -5,13 +5,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-
   apiurl = 'https://dummyjson.com/auth/login';
 
   constructor(private http: HttpClient) {}
 
-  proceedLogin(UserCred: any)
-  {
-    return this.http.post(this.apiurl,UserCred);
+  proceedLogin(UserCred: any) {
+    return this.http.post(this.apiurl, UserCred);
+  }
+  IsLoggedIn() {
+    return localStorage.getItem('token') != null;
   }
 }

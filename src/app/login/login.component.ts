@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,8 @@ export class LoginComponent {
   private resultArr: string[] = ['Hope', 'Tutors'];
   private responsedata: any;
 
-  constructor(private auth:AuthService){
-
+  constructor(private auth:AuthService,private route:Router){
+    localStorage.clear();
   }
 
   Login = new FormGroup({
@@ -29,7 +30,14 @@ export class LoginComponent {
   ProceedLogin() {
     if (this.Login.valid) {
       this.auth.proceedLogin(this.Login.value).subscribe(result => {
-        console.log("Sucess");
+        if(result !=null)
+        {
+          this.responsedata = result;
+          localStorage.setItem('token',this.responsedata.token);
+          localStorage.setItem('Role',"Admin");
+          this.route.navigate(['']);
+        }
+
       } );
 
       console.log("Valid Login");
