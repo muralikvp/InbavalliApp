@@ -6,17 +6,18 @@ import { CustomerService } from '../service/customer.service';
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.css'],
 })
-export class ListingComponent implements OnInit,DoCheck {
+export class ListingComponent implements OnInit, DoCheck {
   public Customerdata: any;
 
   constructor(private service: CustomerService) {}
   ngDoCheck(): void {
-    console.log("Inside ng Do check");
+    console.log('Inside ng Do check');
   }
 
   ngOnInit(): void {
-    console.log("Inside Ng Onit");
+    console.log('Inside Ng Onit');
     this.LoadCustomerData();
+
   }
 
   private LoadCustomerData() {
@@ -26,6 +27,12 @@ export class ListingComponent implements OnInit,DoCheck {
   }
 
   public delete(id: number) {
-    console.log("Inside Delete");
+    if (confirm('Are you sure to delete?')) {
+      this.service.RemoveCustomer(id).subscribe((result) => {
+        if (result != null) {
+          this.LoadCustomerData();
+        }
+      });
+    }
   }
 }

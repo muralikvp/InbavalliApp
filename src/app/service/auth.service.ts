@@ -15,4 +15,19 @@ export class AuthService {
   IsLoggedIn() {
     return localStorage.getItem('token') != null;
   }
+
+  HaveAccess() {
+    var role = localStorage.getItem('Role') || '';
+    if (role == 'Admin') {
+      return true;
+    }
+    else
+    {
+      alert('you are not having access');
+      return false;
+    }
+  }
+  getToken(){
+    return localStorage.getItem('token') || '';
+  }
 }

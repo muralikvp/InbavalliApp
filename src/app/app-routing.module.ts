@@ -8,6 +8,7 @@ import { ListingComponent } from './listing/listing.component';
 import { AddNewComponent } from './add-new/add-new.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { authGuard } from './shared/auth.guard';
+import { roleGuard } from './shared/role.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
         { path: 'create', component: AddNewComponent },
         { path: 'Edit/:id', component: AddNewComponent },
       ],
-      canActivate: [authGuard]
+      canActivate: [authGuard,roleGuard]
 },
 { path: '', component: HomeComponent, canActivate: [authGuard]},
 {path:'**',component:PageNotFoundComponent},

@@ -15,10 +15,16 @@ export class AddNewComponent {
   editdata: any;
   responsedata: any;
 
-  constructor(private service: CustomerService, private route: ActivatedRoute) {
+  constructor(
+    private service: CustomerService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
     if (id !== null) {
       this.customerid = parseInt(id);
+      this.updateCustomer(this.customerid);
     }
   }
 
@@ -61,10 +67,31 @@ export class AddNewComponent {
       phone: new FormControl(''),
     });
   }
-  get name(){
-    return this.register.get("name");
+  get name() {
+    return this.register.get('name');
   }
-  get email(){
-    return this.register.get("email");
+  get email() {
+    return this.register.get('email');
+  }
+  updateCustomer(id: number) {
+
+    const arr = [90,88];
+    arr.length =12;
+
+    this.service.LoadCustomerbycode(id).subscribe((d) => {
+      this.editdata = d;
+      console.log(this.editdata.inbavalli);
+      console.log(this.editdata.firstname);
+      console.log( parseInt(this.editdata.bloodGroup));
+
+
+
+      this.register = new FormGroup({
+        id: new FormControl(this.editdata.id),
+        name: new FormControl(this.editdata.firstName),
+        email: new FormControl(this.editdata.email),
+        phone: new FormControl(this.editdata.phone),
+      });
+    });
   }
 }
